@@ -66,13 +66,14 @@ function drawMenus (focusedId) {
     windows
       .splice(1)
       .forEach(window => {
+        const prefix = window.state === "minimized" ? "♢ " : "\u2003 "
         browser.menus.create({
-          title: 'Merge tabs from ' + window.title,
+          title: prefix + 'Merge tabs from ' + window.title,
           id: 'merge_' + window.id,
           parentId
         })
         experimental && browser.menus.create({
-          title: '... ' + window.title,
+          title: prefix + '... ' + window.title,
           id: 'merge_into_' + window.id,
           parentId: parentIdTabs
         })
