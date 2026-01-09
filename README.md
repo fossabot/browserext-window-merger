@@ -65,18 +65,30 @@ with the operating system appearance set to “Dark”.
 
 ## Code Style
 
-This extension follows the [JavaScript Standard Style][]. I apologise if you
-love semicolons. Make sure to run it under the WebExtensions environment:
+This extension follows the defaults from [Biome][]. I apologise if you like
+configurations. Biome was picked because it can run without the need of any
+extra files in this repository, and because it combines formatting and linting.
 
-```
-standard --env webextensions
+It can be invoked through `npm` after making sure it is installed:
+
+```sh
+npm install
+npm exec biome check
 ```
 
 For further checking the validity of the codebase, make sure to have it linted
 as a browser extension as well:
 
+```sh
+npm install
+npm exec web-ext lint
 ```
-web-ext lint
+
+These checks can be combined:
+
+```sh
+npm install
+npm test
 ```
 
 ## Licenses
@@ -86,4 +98,4 @@ web-ext lint
 
 [FoxyTab]: https://addons.mozilla.org/firefox/addon/foxytab/
 [Duplicate Tabs Closer]: https://github.com/Peuj/duplicate-tabs-closer
-[JavaScript Standard Style]: https://standardjs.com/
+[Biome]: https://biomejs.dev/
