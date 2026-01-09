@@ -12,7 +12,8 @@
 		"url": "https://vanderven.se/martijn/"
 	},
 	"background": {
-		"scripts": ["background.js"]
+		"scripts": ["background.js"],
+		"type": "module"
 	},
 	"commands": {
 		"merge-all-windows": {
@@ -30,7 +31,7 @@
 	"browser_specific_settings": {
 		"gecko": {
 			"id": "{a116b6c7-0611-4938-ba3d-2e4c61241128}",
-			"strict_min_version": "56.0",
+			"strict_min_version": "112.0",
 			"data_collection_permissions": {
 				"required": ["none"]
 			}
