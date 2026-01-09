@@ -1,43 +1,39 @@
 {
-  "name": "Window Merger",
-  "version": "0.6.0",
-  "description": "Options to merge browser windows into one",
-  "icons": {
-      "16": "assets/icon016.png",
-      "24": "assets/icon024.png",
-      "32": "assets/icon032.png"
-  },
-  "developer": {
-      "name": "Martijn van der Ven",
-      "url": "https://vanderven.se/martijn/"
-  },
-  "background": {
-    "scripts": ["background.js"]
-  },
-  "commands": {
-    "merge-all-windows": {
-      "description": "Merge all windows into the current one."
-    },
-    "merge-previous-window": {
-      "description": "Merge previously focused window into the current one."
-    }
-  },
-  "manifest_version": 3,
-  "options_ui": {
-    "page": "preferences.html"
-  },
-  "permissions": [
-    "tabs",
-    "menus",
-    "storage"
-  ],
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "{a116b6c7-0611-4938-ba3d-2e4c61241128}",
-      "strict_min_version": "56.0",
-      "data_collection_permissions": {
-        "required": ["none"]
-      }
-    }
-  }
+	"name": "Window Merger",
+	"version": "0.6.0",
+	"description": "Options to merge browser windows into one",
+	"icons": {
+		"16": "assets/icon016.png",
+		"24": "assets/icon024.png",
+		"32": "assets/icon032.png"
+	},
+	"developer": {
+		"name": "Martijn van der Ven",
+		"url": "https://vanderven.se/martijn/"
+	},
+	"background": {
+		"scripts": ["background.js"]
+	},
+	"commands": {
+		"merge-all-windows": {
+			"description": "Merge all windows into the current one."
+		},
+		"merge-previous-window": {
+			"description": "Merge previously focused window into the current one."
+		}
+	},
+	"manifest_version": 3,
+	"options_ui": {
+		"page": "preferences.html"
+	},
+	"permissions": ["tabs", "menus", "storage"],
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "{a116b6c7-0611-4938-ba3d-2e4c61241128}",
+			"strict_min_version": "56.0",
+			"data_collection_permissions": {
+				"required": ["none"]
+			}
+		}
+	}
 }
