@@ -1,7 +1,7 @@
 {
 	"devDependencies": {
-		"standard": "^16.0.3",
-		"web-ext": "^5.4.1"
+		"standard": "^17.1.2",
+		"web-ext": "^9.2.0"
 	},
 	"scripts": {
 		"test": "standard --env webextensions && web-ext lint",
