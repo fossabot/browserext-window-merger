@@ -1,62 +1,67 @@
+/** @type number[] */
 let focusOrder = [];
 browser.windows.onRemoved.addListener((removedId) => {
 	focusOrder.filter((id) => removedId !== id);
 	browser.menus.remove(`merge_${removedId}`);
-	getWindowsSorted().then(
-		(windows) => windows.length < 2 && browser.menus.removeAll(),
-	);
+	getWindowsSorted().then((windows) => {
+		if (windows.length < 2) browser.menus.removeAll();
+	});
 });
 browser.windows.onFocusChanged.addListener(drawMenus);
 browser.menus.onClicked.addListener((menuItem, currentTab) => {
+	const { windowId, id, index } = currentTab ?? {};
+	if (windowId === undefined || id === undefined || index === undefined) {
+		return;
+	}
 	if (menuItem.menuItemId === "merge_all") {
 		getWindowsSorted(true).then((windows) =>
-			merge(
-				windows.splice(1),
-				currentTab.windowId,
-				currentTab.id,
-				currentTab.index,
-			),
+			merge(windows.slice(1), windowId, id, index),
 		);
-	} else if (menuItem.menuItemId.substr(0, 11) === "merge_into_") {
-		const targetWindow = parseInt(menuItem.menuItemId.substr(11), 10);
+	} else if (`${menuItem.menuItemId}`.substr(0, 11) === "merge_into_") {
+		const targetWindow = parseInt(`${menuItem.menuItemId}`.substr(11), 10);
 		Promise.all([
-			browser.tabs.query({ highlighted: true, windowId: currentTab.windowId }),
+			browser.tabs.query({ highlighted: true, windowId: windowId }),
 			browser.tabs.query({ active: true, windowId: targetWindow }),
-		]).then(([tabs, active]) => {
-			merge(
-				[{ tabs: [...new Set(tabs.concat([currentTab]))] }],
-				targetWindow,
-				active[0].id,
-				active[0].index,
-			);
+		]).then(([tabs, [{ id, index }]]) => {
+			if (currentTab && id && index)
+				merge(
+					[{ tabs: [...new Set(tabs.concat([currentTab]))] }],
+					targetWindow,
+					id,
+					index,
+				);
 		});
-	} else if (menuItem.menuItemId.substr(0, 6) === "merge_") {
+	} else if (`${menuItem.menuItemId}`.substr(0, 6) === "merge_") {
 		browser.windows
-			.get(parseInt(menuItem.menuItemId.substr(6), 10), { populate: true })
-			.then((subject) =>
-				merge([subject], currentTab.windowId, currentTab.id, currentTab.index),
-			);
+			.get(parseInt(`${menuItem.menuItemId}`.substr(6), 10), { populate: true })
+			.then((subject) => merge([subject], windowId, id, index));
 	}
 });
 browser.commands.onCommand.addListener((command) => {
 	Promise.all([
 		browser.tabs.query({ active: true, currentWindow: true }),
 		getWindowsSorted(true),
-	]).then(
-		command === "merge-all-windows"
-			? ([[tab], windows]) =>
-					merge(windows.splice(1), tab.windowId, tab.id, tab.index)
-			: ([[tab], windows]) =>
-					merge(windows.splice(1, 1), tab.windowId, tab.id, tab.index),
-	);
+	]).then(([[{ windowId, id, index }], windows]) => {
+		if (windowId && id)
+			merge(
+				command === "merge-all-windows"
+					? windows.slice(1)
+					: windows.slice(1, 1),
+				windowId,
+				id,
+				index,
+			);
+	});
 });
 
 /**
- * @param {number} focusedId The windows.Window object ID that last gained focus
+ * @param {number} [focusedId] The windows.Window object ID that last gained focus
  */
 function drawMenus(focusedId) {
 	if (focusedId === browser.windows.WINDOW_ID_NONE) return;
-	focusOrder = [...new Set([focusedId].filter(Number).concat(focusOrder))];
+	if (typeof focusedId === "number") {
+		focusOrder = [...new Set([focusedId].concat(focusOrder))];
+	}
 	Promise.all([
 		getWindowsSorted(),
 		browser.storage.local.get({
@@ -92,7 +97,7 @@ function drawMenus(focusedId) {
 				type: "separator",
 				parentId,
 			});
-			windows.splice(1).forEach((window) => {
+			windows.slice(1).forEach((window) => {
 				const prefix = window.state === "minimized" ? "♢ " : "\u2003 ";
 				browser.menus.create({
 					title: `${prefix} Merge·tabs·from·${window.title}`,
@@ -111,7 +116,8 @@ function drawMenus(focusedId) {
 }
 
 /**
- * @param {bool} [populate=false] Whether to populate windows.Window objects with tab information
+ * @param {boolean} [populate=false] Whether to populate windows.Window objects with tab information
+ * @returns {Promise<ReadonlyArray<browser.windows.Window>>}
  */
 function getWindowsSorted(populate = false) {
 	return new Promise((resolve, reject) => {
@@ -122,7 +128,10 @@ function getWindowsSorted(populate = false) {
 					resolve(
 						windows
 							.sort((a, b) =>
-								[focusOrder.indexOf(a.id), focusOrder.indexOf(b.id)]
+								[
+									focusOrder.indexOf(a.id ?? NaN),
+									focusOrder.indexOf(b.id ?? NaN),
+								]
 									.map((i) => (i < 0 ? Infinity : i))
 									.reduce((a, b) => (a === b ? 0 : a - b)),
 							)
@@ -136,22 +145,26 @@ function getWindowsSorted(populate = false) {
 }
 
 /**
- * @param {windows.Window[]} subjects Array of populated windows.Window objects
+ * @param {ReadonlyArray<Pick<browser.windows.Window, "tabs">>} subjects Array of populated windows.Window objects
  * @param {number} target Window ID to merge all subjects’ tabs into
  * @param {number} active Tab ID of the active tab after merge
  * @param {number} activeIndex Index of the active tab
  */
 function merge(subjects, target, active, activeIndex) {
-	const tabs = subjects.reduce((flat, window) => flat.concat(window.tabs), []);
+	const tabs = subjects.flatMap((window) => window.tabs ?? []);
 	Promise.all(
 		[browser.storage.local.get({ merge_insertion: ["0"] })].concat(
 			tabs
 				.filter((tab) => tab.pinned)
-				.map((tab) => browser.tabs.update(tab.id, { pinned: false })),
+				.map((tab) =>
+					tab.id
+						? browser.tabs.update(tab.id, { pinned: false })
+						: Promise.reject(),
+				),
 		),
 	).then(([{ merge_insertion: mergeInsertion }, ...unpinned]) => {
 		const moveIndex = mergeInsertion.pop() === "0" ? -1 : ++activeIndex;
-		const moveList = tabs.map((tab) => tab.id);
+		const moveList = tabs.map((tab) => tab.id).filter((id) => id !== undefined);
 		if (moveIndex !== -1) moveList.reverse();
 		browser.tabs
 			.move(moveList, { windowId: target, index: moveIndex })
