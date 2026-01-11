@@ -115,29 +115,20 @@ function drawMenus(focusedId) {
  * @param {boolean} [populate=false] Whether to populate windows.Window objects with tab information
  * @returns {Promise<ReadonlyArray<browser.windows.Window>>}
  */
-function getWindowsSorted(populate = false) {
-	return new Promise((resolve, reject) => {
-		browser.windows
-			.getAll({ windowTypes: ["normal"], populate })
-			.then(
-				(windows) =>
-					resolve(
-						windows
-							.sort((a, b) =>
-								[
-									focusOrder.indexOf(a.id ?? NaN),
-									focusOrder.indexOf(b.id ?? NaN),
-								]
-									.map((i) => (i < 0 ? Infinity : i))
-									.reduce((a, b) => (a === b ? 0 : a - b)),
-							)
-							.filter(
-								(window, _, sorted) => window.incognito === sorted[0].incognito,
-							),
-					),
-				reject,
-			);
+async function getWindowsSorted(populate = false) {
+	const windows = await browser.windows.getAll({
+		windowTypes: ["normal"],
+		populate,
 	});
+	windows.sort(
+		(a, b) =>
+			(focusOrder.indexOf(a.id ?? NaN) ?? Infinity) -
+			(focusOrder.indexOf(b.id ?? NaN) ?? Infinity),
+	);
+	const isIncognito = windows[0].incognito;
+	return windows.filter(
+		({ id, incognito }) => id !== undefined && incognito === isIncognito,
+	);
 }
 
 /**
