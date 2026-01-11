@@ -5,9 +5,12 @@ function updateForm(state) {
 	for (const name in state) {
 		document.querySelectorAll(`[name="${name}"]`).forEach((element) => {
 			if (element instanceof HTMLInputElement === false) return;
-			element.checked = (
-				Array.isArray(state[name]) ? state[name] : state[name].newValue
-			).includes(element.value);
+			const value = state[name];
+			element.checked =
+				// biome-ignore lint/suspicious/useIsArray: Issue with tsgo?
+				(value instanceof Array ? value : value.newValue).includes(
+					element.value,
+				);
 		});
 	}
 }
