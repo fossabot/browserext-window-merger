@@ -31,6 +31,7 @@ and Do It Well”.
 
 Some other tab management extensions you may like:
 
+* **[Select Tabs][]** — for another add-on doing one thing well!
 * **[FoxyTab][]** — for the all in one thing. If Window Merger does not satisfy
   your habits, chances are a configuration of FoxyTab exists that does!
 * **[Duplicate Tabs Closer][]** — for cleaning tabs after merging windows. If
@@ -91,6 +92,13 @@ npm install
 npm test
 ```
 
+Additionally [TypeScript][] is used to statically check the code:
+
+```sh
+npm install
+npm run lint:types
+```
+
 ## Licenses
 
 * This project uses [REUSE][] to ensure license compliance. You can use their
@@ -105,7 +113,9 @@ npm test
   Please see the [license text](LICENSES/LicenseRef-Tabler-MIT.txt) for more
   information.
 
+[Select Tabs]: https://addons.mozilla.org/firefox/addon/select-tabs/
 [FoxyTab]: https://addons.mozilla.org/firefox/addon/foxytab/
-[Duplicate Tabs Closer]: https://github.com/Peuj/duplicate-tabs-closer
+[Duplicate Tabs Closer]: https://addons.mozilla.org/firefox/addon/duplicate-tabs-closer/
 [Biome]: https://biomejs.dev/
+[TypeScript]: https://www.typescriptlang.org/
 [REUSE]: https://reuse.software/
