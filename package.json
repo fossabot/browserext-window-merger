@@ -20,8 +20,10 @@
 			"assets/preferences-dark.png",
 			"assets/preferences.png",
 			"assets/toolsmenu.png",
+			"package-lock.json",
 			"package.json",
-			"pnpm-lock.yaml"
+			"pnpm-lock.yaml",
+			"tsconfig.json"
 		]
 	}
 }
