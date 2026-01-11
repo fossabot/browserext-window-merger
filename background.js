@@ -84,8 +84,11 @@ function drawMenus(focusedId) {
 				title: "Merge Windows",
 				contexts: menuLocations,
 			});
-			const parentIdTabs = "merge-windows-experimental-menu";
-			experimental &&
+			const parentIdTabs =
+				experimental && menuLocations.indexOf("tab") !== -1
+					? "merge-windows-experimental-menu"
+					: false;
+			parentIdTabs &&
 				browser.menus.create({
 					id: parentIdTabs,
 					title: "Merge Tab into...",
@@ -109,7 +112,7 @@ function drawMenus(focusedId) {
 					id: `merge_${window.id}`,
 					parentId,
 				});
-				experimental &&
+				parentIdTabs &&
 					browser.menus.create({
 						icons: { 16: icon },
 						title: `... ${window.title}`,
