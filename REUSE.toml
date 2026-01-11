@@ -1,0 +1,20 @@
+# This REUSE.toml file is used to tag files in this repository that will not be
+# packaged as part of the add-on. This is limited to the README, screenshots of
+# the add-on in action, and development-only files.
+
+version = 1
+
+[[annotations]]
+path = "assets/*.png"
+SPDX-FileCopyrightText = "2026 Martijn van der Ven <martijn@vanderven.se>"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = "README.md"
+SPDX-FileCopyrightText = "2026 Martijn van der Ven <martijn@vanderven.se>"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = "package.json"
+SPDX-FileCopyrightText = "2026 Martijn van der Ven <martijn@vanderven.se>"
+SPDX-License-Identifier = "0BSD"
