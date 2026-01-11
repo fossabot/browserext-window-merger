@@ -1,12 +1,5 @@
 /** @type number[] */
 let focusOrder = [];
-browser.windows.onRemoved.addListener((removedId) => {
-	focusOrder.filter((id) => removedId !== id);
-	browser.menus.remove(`merge_${removedId}`);
-	getWindowsSorted().then((windows) => {
-		if (windows.length < 2) browser.menus.removeAll();
-	});
-});
 browser.windows.onFocusChanged.addListener(drawMenus);
 browser.menus.onClicked.addListener((menuItem, currentTab) => {
 	const { windowId, id, index } = currentTab ?? {};
