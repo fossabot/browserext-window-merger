@@ -130,11 +130,12 @@ async function getWindowsSorted(populate = false) {
 		windowTypes: ["normal"],
 		populate,
 	});
-	windows.sort(
-		(a, b) =>
-			(focusOrder.indexOf(a.id ?? NaN) ?? Infinity) -
-			(focusOrder.indexOf(b.id ?? NaN) ?? Infinity),
-	);
+	windows.sort((a, b) => {
+		const aC = focusOrder.indexOf(a.id ?? NaN) + 1 || Infinity;
+		const bC = focusOrder.indexOf(b.id ?? NaN) + 1 || Infinity;
+		const r = aC - bC;
+		return isNaN(r) ? 0 : r;
+	});
 	const isIncognito = windows[0].incognito;
 	return windows.filter(
 		({ id, incognito }) => id !== undefined && incognito === isIncognito,
