@@ -102,7 +102,7 @@ function drawMenus(focusedId) {
 				parentId,
 			});
 			windows.slice(1).forEach((window) => {
-				const icon = `assets/${window.state === "minimized" ? "diamond" : "blank"}.svg`;
+				const icon = `assets/${window.state === "minimized" ? "diamonds" : "blank"}.svg`;
 				browser.menus.create({
 					icons: { 16: icon },
 					title: `Merge tabs from ${window.title}`,
