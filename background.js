@@ -134,7 +134,7 @@ async function getWindowsSorted(populate = false) {
 		const aC = focusOrder.indexOf(a.id ?? NaN) + 1 || Infinity;
 		const bC = focusOrder.indexOf(b.id ?? NaN) + 1 || Infinity;
 		const r = aC - bC;
-		return isNaN(r) ? 0 : r;
+		return Number.isNaN(r) ? 0 : r;
 	});
 	const isIncognito = windows[0].incognito;
 	return windows.filter(
