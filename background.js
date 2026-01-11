@@ -74,13 +74,16 @@ function drawMenus(focusedId) {
 			},
 		]) => {
 			if (windows.length < 2) return;
-			const parentId = browser.menus.create({
+			const parentId = "merge-windows-root-menu";
+			browser.menus.create({
+				id: parentId,
 				title: "Merge Windows",
 				contexts: menuLocations,
 			});
-			const parentIdTabs =
-				experimental &&
+			const parentIdTabs = "merge-windows-experimental-menu";
+			experimental &&
 				browser.menus.create({
+					id: parentIdTabs,
 					title: "Merge Tab into...",
 					contexts: ["tab"],
 				});
@@ -90,6 +93,7 @@ function drawMenus(focusedId) {
 				parentId,
 			});
 			browser.menus.create({
+				id: "merge-windows-menu-separator",
 				type: "separator",
 				parentId,
 			});
