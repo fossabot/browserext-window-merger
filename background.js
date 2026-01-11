@@ -1,5 +1,6 @@
-/** @type number[] */
-let focusOrder = [];
+/** @type {number[]} */
+const focusOrder = [];
+
 browser.windows.onFocusChanged.addListener(drawMenus);
 browser.menus.onClicked.addListener((menuItem, currentTab) => {
 	const { windowId, id, index } = currentTab ?? {};
@@ -53,7 +54,9 @@ browser.commands.onCommand.addListener((command) => {
 function drawMenus(focusedId) {
 	if (focusedId === browser.windows.WINDOW_ID_NONE) return;
 	if (typeof focusedId === "number") {
-		focusOrder = [...new Set([focusedId].concat(focusOrder))];
+		const removeFrom = focusOrder.indexOf(focusedId);
+		if (removeFrom !== -1) focusOrder.splice(removeFrom, 1);
+		focusOrder.unshift(focusedId);
 	}
 	Promise.all([
 		getWindowsSorted(),
