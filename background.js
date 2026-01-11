@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Martijn van der Ven <martijn@vanderven.se>
+//
+// SPDX-License-Identifier: 0BSD
+
 /** @type {number[]} */
 const focusOrder = [];
 
