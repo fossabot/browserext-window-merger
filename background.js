@@ -98,15 +98,17 @@ function drawMenus(focusedId) {
 				parentId,
 			});
 			windows.slice(1).forEach((window) => {
-				const prefix = window.state === "minimized" ? "♢ " : "\u2003 ";
+				const icon = `assets/${window.state === "minimized" ? "diamond" : "blank"}.svg`;
 				browser.menus.create({
-					title: `${prefix} Merge·tabs·from·${window.title}`,
+					icons: { 16: icon },
+					title: `Merge tabs from ${window.title}`,
 					id: `merge_${window.id}`,
 					parentId,
 				});
 				experimental &&
 					browser.menus.create({
-						title: `${prefix} ...·${window.title}`,
+						icons: { 16: icon },
+						title: `... ${window.title}`,
 						id: `merge_into_${window.id}`,
 						parentId: parentIdTabs,
 					});
