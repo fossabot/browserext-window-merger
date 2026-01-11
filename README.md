@@ -93,9 +93,19 @@ npm test
 
 ## Licenses
 
-* Everything is released under the BSD Zero Clause License (0BSD). Please see
-  the [`LICENSE`](LICENSE) file for more information.
+* This project uses [REUSE][] to ensure license compliance. You can use their
+  tooling to inspect all the different licenses that apply to this repository.
+* All code packaged into the add-on is released under the the BSD Zero Clause
+  License (0BSD). Please see the [license text](LICENSES/0BSD.txt) for more
+  information.
+* The icons packaged into the add-on are released under the Creative Commons
+  Attribution 4.0 International Public License (CC-BY-4.0). Please see the
+  [license text](LICENSES/CC-BY-4.0.txt) for more information.
+* A single external graphic is used by this add-on under the MIT License (MIT).
+  Please see the [license text](LICENSES/LicenseRef-Tabler-MIT.txt) for more
+  information.
 
 [FoxyTab]: https://addons.mozilla.org/firefox/addon/foxytab/
 [Duplicate Tabs Closer]: https://github.com/Peuj/duplicate-tabs-closer
 [Biome]: https://biomejs.dev/
+[REUSE]: https://reuse.software/
