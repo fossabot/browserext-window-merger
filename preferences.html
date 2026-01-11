@@ -12,20 +12,25 @@ SPDX-License-Identifier: 0BSD
     <style>
       @import "chrome://global/skin/in-content/common.css";
       :root /* = html, but higher specificity */ {
-        background-color: var(--in-content-box-background);
+        background-color: var(--background-color-box);
+      }
+      body {
+        overflow: hidden;
         padding-bottom: 3em;
       }
       fieldset {
         border: 0;
         margin: 0;
         padding: 0;
-        padding-bottom: var(--card-padding);
         margin-top: var(--card-padding);
         color: var(--in-content-text-color);
-        border-bottom: 1px solid var(--in-content-box-border-color);
         display: grid;
         grid-template-columns: 2em 1fr;
         grid-row-gap: .75em;
+      }
+      fieldset:not(:last-of-type) {
+        padding-bottom: var(--card-padding);
+        border-bottom: 1px solid var(--in-content-border-color);
       }
       legend {
         padding-bottom: .75em;
