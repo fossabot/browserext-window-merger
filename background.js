@@ -44,7 +44,7 @@ browser.commands.onCommand.addListener((command) => {
 			merge(
 				command === "merge-all-windows"
 					? windows.slice(1)
-					: windows.slice(1, 1),
+					: windows.slice(1, 2),
 				windowId,
 				id,
 				index,
