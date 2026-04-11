@@ -6,6 +6,7 @@
 const focusOrder = [];
 
 browser.windows.onFocusChanged.addListener(drawMenus);
+browser.windows.onRemoved.addListener(() => drawMenus());
 browser.menus.onClicked.addListener((menuItem, currentTab) => {
 	const { windowId, id, index } = currentTab ?? {};
 	if (windowId === undefined || id === undefined || index === undefined) {
