@@ -1,15 +1,29 @@
 {
 	"private": true,
-	"devDependencies": {
-		"@biomejs/biome": "2.3.11",
-		"@types/firefox-webext-browser": "^143.0.0",
-		"@typescript/native-preview": "^7.0.0-dev.20260109.1",
-		"web-ext": "^9.2.0"
-	},
 	"scripts": {
 		"lint:types": "tsgo --ignoreConfig --strict --noEmit --checkJs --target es2019 --types firefox-webext-browser *.js",
-		"test": "biome check && web-ext lint",
-		"start": "biome check && web-ext lint && web-ext build"
+		"start": "biome check && web-ext lint && web-ext build",
+		"test": "biome check && web-ext lint"
+	},
+	"overrides": {
+		"brace-expansion": "1.1.13",
+		"encoding-sniffer": "1.0.2",
+		"node-forge": "1.4.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.4.10",
+		"@types/firefox-webext-browser": "143.0.0",
+		"@typescript/native-preview": "7.0.0-dev.20260408.1",
+		"web-ext": "10.1.0"
+	},
+	"engines": {
+		"node": ">=24 <25",
+		"npm": ">=11.10.0"
+	},
+	"//overrides": {
+		"brace-expansion": "web-ext transitive: GHSA-f886-m6hf-6m8v, zero-step sequence causes hang and memory exhaustion",
+		"encoding-sniffer": "web-ext > addons-linter > cheerio transitive: 1.0.2 drops deprecated whatwg-encoding for @exodus/bytes",
+		"node-forge": "web-ext transitive: GHSA-2328-f5f3-gj25, GHSA-q67f-28xg-22rw, GHSA-5m6q-g25r-mvwx, GHSA-ppp5-5v6c-4jwp, multiple signature forgery and DoS vulnerabilities"
 	},
 	"webExt": {
 		"ignoreFiles": [
