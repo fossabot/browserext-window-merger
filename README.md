@@ -1,5 +1,10 @@
 # ![](assets/icon032.png) Window Merger
 
+[![Firefox Browser Add-on](https://img.shields.io/amo/v/window-merger?logo=firefoxbrowser&label=version)](https://addons.mozilla.org/firefox/addon/window-merger/)
+![Add-on user count](https://img.shields.io/amo/users/window-merger)
+[![Add-on reviews](https://img.shields.io/amo/rating/window-merger?label=%E2%98%85)](https://addons.mozilla.org/firefox/addon/window-merger/reviews/)
+[![GitHub License](https://img.shields.io/badge/license-0BSD-%237cd958)](COPYING)
+
 Window Merger was created to address how people want to merge browser windows
 together after a long browsing session. Simply right click to open Firefox’s
 context menu when multiple windows are open, pick the window you want to merge

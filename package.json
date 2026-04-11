@@ -32,6 +32,7 @@
 	"webExt": {
 		"ignoreFiles": [
 			".npmrc",
+			"COPYING",
 			"README.md",
 			"assets/contextmenu.png",
 			"assets/extensionshortcuts.png",
