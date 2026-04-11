@@ -70,33 +70,27 @@ This extension follows the defaults from [Biome][]. I apologise if you like
 configurations. Biome was picked because it can run without the need of any
 extra files in this repository, and because it combines formatting and linting.
 
-It can be invoked through `npm` after making sure it is installed:
-
-```sh
-npm install
-npm exec biome check
-```
-
-For further checking the validity of the codebase, make sure to have it linted
-as a browser extension as well:
-
-```sh
-npm install
-npm exec web-ext lint
-```
-
-These checks can be combined:
+The codebase is checked by Biome for formatting and linting, by web-ext for
+browser extension validity, and by [TypeScript][] for static type checking. All
+checks can be run together after making sure dependencies are installed:
 
 ```sh
 npm install
 npm test
 ```
 
-Additionally [TypeScript][] is used to statically check the code:
+## Upkeep
+
+To check for outdated dependencies, use [npm-check-updates][]:
 
 ```sh
-npm install
-npm run lint:types
+npx npm-check-updates
+```
+
+After making changes to `package.json`, sort it with [sort-package-json][]:
+
+```sh
+npx sort-package-json
 ```
 
 ## Licenses
@@ -119,3 +113,5 @@ npm run lint:types
 [Biome]: https://biomejs.dev/
 [TypeScript]: https://www.typescriptlang.org/
 [REUSE]: https://reuse.software/
+[npm-check-updates]: https://npmx.dev/npm-check-updates
+[sort-package-json]: https://npmx.dev/sort-package-json

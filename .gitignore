@@ -3,8 +3,6 @@
 # SPDX-License-Identifier: 0BSD
 
 node_modules
-pnpm-lock.yaml
-package-lock.json
 web-ext-artifacts
 .vscode
 tsconfig.json
