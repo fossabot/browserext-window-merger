@@ -12,7 +12,7 @@ browser.menus.onClicked.addListener((menuItem, currentTab) => {
 		return;
 	}
 	if (menuItem.menuItemId === "merge_all") {
-		getWindowsSorted(true).then((windows) =>
+		getWindowsSorted(true, true).then((windows) =>
 			merge(windows.slice(1), windowId, id, index),
 		);
 	} else if (`${menuItem.menuItemId}`.substr(0, 11) === "merge_into_") {
@@ -38,7 +38,7 @@ browser.menus.onClicked.addListener((menuItem, currentTab) => {
 browser.commands.onCommand.addListener((command) => {
 	Promise.all([
 		browser.tabs.query({ active: true, currentWindow: true }),
-		getWindowsSorted(true),
+		getWindowsSorted(true, command === "merge-all-windows"),
 	]).then(([[{ windowId, id, index }], windows]) => {
 		if (windowId && id)
 			merge(
@@ -126,9 +126,10 @@ function drawMenus(focusedId) {
 
 /**
  * @param {boolean} [populate=false] Whether to populate windows.Window objects with tab information
+ * @param {boolean} [excludeMinimized=false] Whether to exclude minimized windows from the result
  * @returns {Promise<ReadonlyArray<browser.windows.Window>>}
  */
-async function getWindowsSorted(populate = false) {
+async function getWindowsSorted(populate = false, excludeMinimized = false) {
 	const windows = await browser.windows.getAll({
 		windowTypes: ["normal"],
 		populate,
@@ -141,7 +142,10 @@ async function getWindowsSorted(populate = false) {
 	});
 	const isIncognito = windows[0].incognito;
 	return windows.filter(
-		({ id, incognito }) => id !== undefined && incognito === isIncognito,
+		({ id, incognito, state }) =>
+			id !== undefined &&
+			incognito === isIncognito &&
+			(!excludeMinimized || state !== "minimized"),
 	);
 }
 
