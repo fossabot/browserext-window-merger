@@ -1,9 +1,12 @@
 {
 	"private": true,
 	"scripts": {
+		"build": "web-ext build --overwrite-dest",
+		"lint:biome": "biome check",
+		"lint:ext": "web-ext lint",
 		"lint:types": "tsgo --ignoreConfig --strict --noEmit --checkJs --target es2019 --types firefox-webext-browser *.js",
-		"start": "biome check && web-ext lint && web-ext build",
-		"test": "biome check && web-ext lint"
+		"start": "run-s test build",
+		"test": "run-p lint:*"
 	},
 	"overrides": {
 		"brace-expansion": "1.1.13",
@@ -14,6 +17,7 @@
 		"@biomejs/biome": "2.4.10",
 		"@types/firefox-webext-browser": "143.0.0",
 		"@typescript/native-preview": "7.0.0-dev.20260408.1",
+		"npm-run-all2": "8.0.4",
 		"web-ext": "10.1.0"
 	},
 	"engines": {
