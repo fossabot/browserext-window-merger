@@ -15,6 +15,6 @@ SPDX-FileCopyrightText = "2026 Martijn van der Ven <martijn@vanderven.se>"
 SPDX-License-Identifier = "CC-BY-4.0"
 
 [[annotations]]
-path = "package.json"
+path = [".npmrc", "package.json"]
 SPDX-FileCopyrightText = "2026 Martijn van der Ven <martijn@vanderven.se>"
 SPDX-License-Identifier = "0BSD"
