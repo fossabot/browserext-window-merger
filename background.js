@@ -6,7 +6,16 @@
 const focusOrder = [];
 
 browser.windows.onFocusChanged.addListener(drawMenus);
-browser.windows.onRemoved.addListener(() => drawMenus());
+browser.windows.onRemoved.addListener((windowId) => {
+	const removeFrom = focusOrder.indexOf(windowId);
+	if (removeFrom !== -1) focusOrder.splice(removeFrom, 1);
+	if (focusOrder.length < 2) {
+		browser.menus.removeAll();
+	} else {
+		browser.menus.remove(`merge_${windowId}`);
+		browser.menus.remove(`merge_into_${windowId}`);
+	}
+});
 browser.menus.onClicked.addListener((menuItem, currentTab) => {
 	const { windowId, id, index } = currentTab ?? {};
 	if (windowId === undefined || id === undefined || index === undefined) {
