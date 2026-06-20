@@ -6,7 +6,7 @@
 		"lint:ext": "web-ext lint",
 		"lint:types": "tsgo --ignoreConfig --strict --noEmit --checkJs --target es2019 --types firefox-webext-browser *.js",
 		"start": "run-s test build",
-		"test": "run-p lint:*"
+		"test": "run-p --continue-on-error lint:*"
 	},
 	"overrides": {
 		"brace-expansion": "1.1.13",
