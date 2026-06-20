@@ -115,7 +115,13 @@ function drawMenus(focusedId) {
 				parentId,
 			});
 			windows.slice(1).forEach((window) => {
-				const icon = `assets/${window.state === "minimized" ? "diamonds" : "blank"}.svg`;
+				const iconVersion =
+					window.state === "minimized"
+						? "diamonds"
+						: window.type === "popup"
+							? "app-window"
+							: "blank";
+				const icon = `assets/${iconVersion}.svg`;
 				browser.menus.create({
 					icons: { 16: icon },
 					title: `Merge tabs from ${window.title}`,
@@ -141,7 +147,7 @@ function drawMenus(focusedId) {
  */
 async function getWindowsSorted(populate = false, excludeMinimized = false) {
 	const windows = await browser.windows.getAll({
-		windowTypes: ["normal"],
+		windowTypes: ["normal", "popup"],
 		populate,
 	});
 	windows.sort((a, b) => {
