@@ -1,0 +1,11 @@
+{
+	"compilerOptions": {
+		"strict": false,
+		"noEmit": true,
+		"checkJs": true,
+		"allowJs": true,
+		"target": "es2019",
+		"types": ["firefox-webext-browser"]
+	},
+	"files": ["background.js"]
+}

@@ -34,14 +34,15 @@
 			".npmrc",
 			"COPYING",
 			"README.md",
+			"REUSE.toml",
 			"assets/contextmenu.png",
 			"assets/extensionshortcuts.png",
 			"assets/preferences-dark.png",
 			"assets/preferences.png",
 			"assets/toolsmenu.png",
+			"biome.json",
 			"package-lock.json",
 			"package.json",
-			"REUSE.toml",
 			"tsconfig.json"
 		]
 	}
