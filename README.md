@@ -4,6 +4,7 @@
 ![Add-on user count](https://img.shields.io/amo/users/window-merger)
 [![Add-on reviews](https://img.shields.io/amo/rating/window-merger?label=%E2%98%85)](https://addons.mozilla.org/firefox/addon/window-merger/reviews/)
 [![GitHub License](https://img.shields.io/badge/license-0BSD-%237cd958)](COPYING)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FZegnat%2Fbrowserext-window-merger.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FZegnat%2Fbrowserext-window-merger?ref=badge_shield)
 
 Window Merger was created to address how people want to merge browser windows
 together after a long browsing session. Simply right click to open Firefox’s
@@ -120,3 +121,6 @@ npx sort-package-json
 [REUSE]: https://reuse.software/
 [npm-check-updates]: https://npmx.dev/npm-check-updates
 [sort-package-json]: https://npmx.dev/sort-package-json
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FZegnat%2Fbrowserext-window-merger.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FZegnat%2Fbrowserext-window-merger?ref=badge_large)
